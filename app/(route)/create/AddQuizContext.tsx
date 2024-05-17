@@ -17,13 +17,13 @@ export const InitQuizContext = ({
   c1Ref: React.RefObject<HTMLInputElement>;
   c2Ref: React.RefObject<HTMLInputElement>;
   c3Ref: React.RefObject<HTMLInputElement>;
-  quiz: { [key: string]: { answer1: string; answer2: string; answer3: string; correct: number } };
+  quiz: { [key: string]: { question:string; answer1: string; answer2: string; answer3: string; correct: number } };
   selectedQuiz: string;
   isInit: boolean;
 }) => {
   const correct = quiz[selectedQuiz].correct.toString();
   if (qRef.current && a1Ref.current && a2Ref.current && a3Ref.current && c1Ref.current && c2Ref.current && c3Ref.current) {
-    qRef.current.value = isInit ? "" : selectedQuiz;
+    qRef.current.value = isInit ? "" : quiz[selectedQuiz].question;
     a1Ref.current.value = isInit ? "" : quiz[selectedQuiz].answer1;
     a2Ref.current.value = isInit ? "" : quiz[selectedQuiz].answer2;
     a3Ref.current.value = isInit ? "" : quiz[selectedQuiz].answer3;
