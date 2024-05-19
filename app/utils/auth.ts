@@ -1,0 +1,30 @@
+import { auth, provider } from "./firebase";
+import { signInWithPopup } from "firebase/auth";
+
+export async function isLogin() {
+  try {
+    if (auth.currentUser) {
+      return true;
+    } else {
+      return (window.location.href = "/");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function signInWithGoogle() {
+  try {
+    await signInWithPopup(auth, provider);
+  } catch (error) {
+    console.error("Error signing in with Google", error);
+  }
+}
+
+export async function signOut() {
+  try {
+    return auth.signOut();
+  } catch (error) {
+    console.error("Error signing out with Google", error);
+  }
+}

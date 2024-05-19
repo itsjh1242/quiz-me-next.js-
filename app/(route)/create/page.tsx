@@ -1,17 +1,21 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
+import useAuth from "@/app/utils/useAuth";
 import { useBeforeunload } from "react-beforeunload";
 
 // components
 import { InitQuizContext } from "./AddQuizContext";
+import { UploadQuiz } from "./CreateQuiz";
 
 // ui
 import { RoundedButton } from "@/app/components/ui/Button";
 import { Input } from "@/app/components/ui/Input";
+import { isLogin } from "@/app/utils/auth";
 
 const MAX_CREATE_VALUE = 10;
 
 const CreateQuizPage = () => {
+  isLogin();
   // 새로고침 시 경고창
   useBeforeunload((event) => event.preventDefault());
 
@@ -56,6 +60,17 @@ const CreateQuizPage = () => {
 
     initQuiz(true);
     setIsEditMode(false);
+  };
+
+  // 퀴즈 업로드
+  const uploadQuiz = async () => {
+    try {
+      if (quiz) {
+        const res = await UploadQuiz({ quiz });
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   // 답안 초기화
@@ -122,10 +137,11 @@ const CreateQuizPage = () => {
       </div>
 
       <RoundedButton
-        className="fixed bottom-4 right-1/2 translate-x-1/2 w-1/2 max-sm:w-11/12"
+        className="fixed bottom-4 right-1/2 translate-x-1/2 w-1/2 max-sm:w-11/12 hover:bg-green-600"
         bg_color="bg-green-500"
-        hover_bg_color="bg-green-600"
-        method={() => {}}
+        method={() => {
+          uploadQuiz();
+        }}
       >
         <p>퀴즈 생성</p>
       </RoundedButton>
@@ -284,27 +300,27 @@ const AddQuizForm = ({
           3번
         </div>
       </div>
-      <RoundedButton
-        className="w-full"
-        method={() => {
-          SaveQuizContext();
-        }}
-      >
-        저장
-      </RoundedButton>
-
-      {isEditMode ? (
+      <div className="flex gap-2">
         <RoundedButton
-          className="w-full mt-4"
-          bg_color="bg-red-500"
-          hover_bg_color="bg-red-600"
+          className="w-1/2 hover:bg-blue-600"
           method={() => {
-            deleteQuiz();
+            SaveQuizContext();
           }}
         >
-          삭제
+          저장
         </RoundedButton>
-      ) : null}
+        {isEditMode ? (
+          <RoundedButton
+            className="w-1/2 hover:bg-red-600"
+            bg_color="bg-red-500"
+            method={() => {
+              deleteQuiz();
+            }}
+          >
+            삭제
+          </RoundedButton>
+        ) : null}
+      </div>
     </div>
   );
 };
