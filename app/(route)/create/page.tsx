@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
+import { useRouter, redirect } from "next/navigation";
 import useAuth from "@/app/utils/useAuth";
 import { useBeforeunload } from "react-beforeunload";
 
@@ -15,10 +16,14 @@ import { isLogin } from "@/app/utils/auth";
 const MAX_CREATE_VALUE = 10;
 
 const CreateQuizPage = () => {
-  isLogin();
+  if (!isLogin()) {
+    redirect("/");
+  }
   // 새로고침 시 경고창
   useBeforeunload((event) => event.preventDefault());
 
+  const router = useRouter();
+  const user = useAuth();
   const [quiz, setQuiz] = useState<{ [key: string]: { question: string; answer1: string; answer2: string; answer3: string; correct: number } }>({});
   const [quizCount, setQuizCount] = useState<number>(0);
   const [autoIncrement, setAutoIncrement] = useState<number>(0);
@@ -65,8 +70,15 @@ const CreateQuizPage = () => {
   // 퀴즈 업로드
   const uploadQuiz = async () => {
     try {
-      if (quiz) {
-        const res = await UploadQuiz({ quiz });
+      if (Object.keys(quiz).length >= 1) {
+        const res = await UploadQuiz({ quiz, user });
+        if (res !== null || res !== undefined) {
+          router.replace("/share/" + res);
+        } else {
+          alert("Error.");
+        }
+      } else {
+        alert("퀴즈는 최소 1개 이상 만들어야 합니다.");
       }
     } catch (e) {
       console.error(e);

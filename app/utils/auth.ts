@@ -1,12 +1,12 @@
 import { auth, provider } from "./firebase";
 import { signInWithPopup } from "firebase/auth";
 
-export async function isLogin() {
+export function isLogin() {
   try {
     if (auth.currentUser) {
       return true;
     } else {
-      return (window.location.href = "/");
+      return false;
     }
   } catch (error) {
     console.error(error);
