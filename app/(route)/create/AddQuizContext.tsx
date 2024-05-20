@@ -17,7 +17,7 @@ export const InitQuizContext = ({
   c1Ref: React.RefObject<HTMLInputElement>;
   c2Ref: React.RefObject<HTMLInputElement>;
   c3Ref: React.RefObject<HTMLInputElement>;
-  quiz: { [key: string]: { question: string; answer1: string; answer2: string; answer3: string; correct: number } };
+  quiz: { [key: string]: any };
   selectedQuiz: string;
   isInit: boolean;
 }) => {

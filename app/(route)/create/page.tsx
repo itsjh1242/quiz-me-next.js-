@@ -22,8 +22,9 @@ const CreateQuizPage = () => {
   // 새로고침 시 경고창
   useBeforeunload((event) => event.preventDefault());
 
-  const router = useRouter();
   const user = useAuth();
+  const router = useRouter();
+
   const [quiz, setQuiz] = useState<{ [key: string]: { question: string; answer1: string; answer2: string; answer3: string; correct: number } }>({});
   const [quizCount, setQuizCount] = useState<number>(0);
   const [autoIncrement, setAutoIncrement] = useState<number>(0);

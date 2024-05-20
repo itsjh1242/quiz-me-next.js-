@@ -23,7 +23,7 @@ const HomePage = () => {
         <LinkButton link="create" className="hover:bg-blue-600">
           퀴즈 만들기
         </LinkButton>
-        <LinkButton link="quizzes" bg_color="bg-green-500" className="hover:bg-green-600">
+        <LinkButton link="quizzes/my-quiz" bg_color="bg-green-500" className="hover:bg-green-600">
           내 퀴즈 보기
         </LinkButton>
       </div>

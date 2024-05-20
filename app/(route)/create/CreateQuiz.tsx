@@ -16,7 +16,7 @@ export const UploadQuiz = async ({
     // uuid 생성
     const uuid = uuidv4();
     // 데이터 전처리
-    const data = { ...quiz, quizTitle: quizTitle, userName: user.displayName, available: true, timestamp: Timestamp.now() };
+    const data = { id: uuid, quiz: { ...quiz }, quizTitle: quizTitle, userName: user.displayName, available: true, timestamp: Timestamp.now(), participant: 0 };
     // Firebase에 추가
     // await addDoc(collection(db, "quizzes"), data);
     try {
