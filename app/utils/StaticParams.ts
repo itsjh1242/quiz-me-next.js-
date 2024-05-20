@@ -1,5 +1,4 @@
-import QuizDetailPage from "./QuizDetailPage";
-import { GetQuizzesUUID } from "../../Quiz";
+import { GetQuizzesUUID } from "../(route)/quizzes/Quiz";
 
 export async function generateStaticParams(){
   try {
@@ -14,7 +13,3 @@ export async function generateStaticParams(){
     return [];
   }
 };
-
-export default function Page({ params }: { params: any }) {
-  return <QuizDetailPage uuid={params.uuid} />;
-}

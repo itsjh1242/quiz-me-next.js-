@@ -1,6 +1,17 @@
 import { collection, query, where, getDoc, getDocs, orderBy, doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/app/utils/firebase";
 
+export const GetQuizzesUUID = async () => {
+  try {
+    const quizzesRef = collection(db, "quizzes");
+    const quizzesSnap = await getDocs(quizzesRef);
+    const uuids = quizzesSnap.docs.map((doc) => doc.id);
+    return uuids;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 export const GetQuizzesByUserName = async (userName: string) => {
   try {
     const quizzesRef = collection(db, "quizzes");
