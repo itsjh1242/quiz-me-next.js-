@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { User } from "firebase/auth"; // Import the 'User' type from the appropriate module
+import { User } from "firebase/auth";
 import { auth } from "./firebase";
 
 const useAuth = () => {
-  const [user, setUser] = useState<User | null>(null); // Add type annotation for 'user' state variable
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
